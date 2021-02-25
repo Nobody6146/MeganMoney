@@ -43,10 +43,10 @@ LoginView.prototype.getRoute = function() {
     return "#login";
 }
 LoginView.prototype.getHTML = function() {
-    return fetch("/views/login.html");
+    return fetch("views/login.html");
 }
 LoginView.prototype.getJavasScript = function() {
-    return fetch("/views/login.js");
+    return fetch("views/login.js");
 }
 LoginView.prototype.getData = function() {
     return {
@@ -65,7 +65,7 @@ DashboardView.prototype.getRoute = function() {
     return "#dashboard";
 }
 DashboardView.prototype.getHTML = function() {
-   return fetch("/views/dashboard/index.html");
+   return fetch("views/dashboard/index.html");
 }
 DashboardView.prototype.getData = function(req) {
     return AppData.getTransactions()
@@ -96,10 +96,10 @@ SettingsView.prototype.getRoute = function() {
     return "#settings";
 }
 SettingsView.prototype.getHTML = function() {
-    return fetch("/views/settings/index.html");
+    return fetch("views/settings/index.html");
 }
 SettingsView.prototype.getJavasScript = function() {
-    return fetch("/views/settings/index.js");
+    return fetch("views/settings/index.js");
 }
 SettingsView.prototype.getData = function(req) {
     return AppData.getTransactionTypes()
@@ -120,7 +120,7 @@ LabelsView.prototype.getRoute = function() {
     return "#labels";
 }
 LabelsView.prototype.getHTML = function() {
-    return fetch("/views/labels/index.html");
+    return fetch("views/labels/index.html");
 }
 LabelsView.prototype.getData = function() {
     return AppData.getLabels()
@@ -131,7 +131,7 @@ LabelsView.prototype.getData = function() {
     });
 }
 LabelsView.prototype.getJavasScript = function() {
-    return fetch("/views/labels/index.js");
+    return fetch("views/labels/index.js");
 }
 //====
 function LabelsEditView() {
@@ -142,10 +142,10 @@ LabelsEditView.prototype.getRoute = function(id) {
     return LabelsView.prototype.getRoute() + "/" + (id !== undefined ? id : ":id");
 }
 LabelsEditView.prototype.getHTML = function() {
-    return fetch("/views/labels/edit.html");
+    return fetch("views/labels/edit.html");
 }
 LabelsEditView.prototype.getJavasScript = function() {
-    return fetch("/views/labels/edit.js");
+    return fetch("views/labels/edit.js");
 }
 LabelsEditView.prototype.getData = function(req) {
     let id = Number.parseInt(req.params.id);
@@ -172,7 +172,7 @@ TransactionsView.prototype.getRoute = function() {
     return "#accounts";
 }
 TransactionsView.prototype.getHTML = function() {
-    return fetch("/views/accounts/index.html");
+    return fetch("views/accounts/index.html");
 }
 TransactionsView.prototype.getData = function() {
     let trans = [];
@@ -213,7 +213,7 @@ TransactionsView.prototype.getData = function() {
     });
 }
 TransactionsView.prototype.getJavasScript = function() {
-    return fetch("/views/accounts/index.js");
+    return fetch("views/accounts/index.js");
 }
 //====
 function TransactionsEditView() {
@@ -224,10 +224,10 @@ TransactionsEditView.prototype.getRoute = function(id) {
     return TransactionsView.prototype.getRoute() + "/edit/" + (id !== undefined ? id : ":id");
 }
 TransactionsEditView.prototype.getHTML = function() {
-    return fetch("/views/accounts/edit.html");
+    return fetch("views/accounts/edit.html");
 }
 TransactionsEditView.prototype.getJavasScript = function() {
-    return fetch("/views/accounts/edit.js");
+    return fetch("views/accounts/edit.js");
 }
 TransactionsEditView.prototype.getData = function(req) {
     let id = Number.parseInt(req.params.id);
@@ -266,7 +266,7 @@ TransactionsSummaryView.prototype.getRoute = function() {
     return TransactionsView.prototype.getRoute() + "/summary";
 }
 TransactionsSummaryView.prototype.getHTML = function() {
-    return fetch("/views/accounts/summary.html");
+    return fetch("views/accounts/summary.html");
 }
 TransactionsSummaryView.prototype.getData = function() {
     return Promise.all([AppData.getTransactions(), AppData.getLabels()])
@@ -380,7 +380,7 @@ TransactionsSummaryView.prototype.getData = function() {
     });
 }
 TransactionsSummaryView.prototype.getJavasScript = function() {
-    return fetch("/views/accounts/summary.js");
+    return fetch("views/accounts/summary.js");
 }
 
 
@@ -394,7 +394,7 @@ BudgetsView.prototype.getRoute = function() {
 }
 BudgetsView.prototype.getHTML = function() {
     return "<h2>Cooming Soon!</h2>"
-    return fetch("/views/budgets/index.html");
+    return fetch("views/budgets/index.html");
 }
 // BudgetsView.prototype.getData = function() {
 //     let plans = GetBudgetPlans();
@@ -410,7 +410,7 @@ BudgetsView.prototype.getHTML = function() {
 //     return data;
 // }
 // BudgetsView.prototype.getJavasScript = function() {
-//     return fetch("/views/budgets/index.js");
+//     return fetch("views/budgets/index.js");
 // }
 //====
 function BudgetsEditView() {
@@ -421,10 +421,10 @@ BudgetsEditView.prototype.getRoute = function(id) {
     return BudgetsView.prototype.getRoute() + "/" + (id ? id : ":id") + "/edit";
 }
 BudgetsEditView.prototype.getHTML = function() {
-    return fetch("/views/budgets/edit.html");
+    return fetch("views/budgets/edit.html");
 }
 BudgetsEditView.prototype.getJavasScript = function() {
-    return fetch("/views/budgets/edit.js");
+    return fetch("views/budgets/edit.js");
 }
 BudgetsEditView.prototype.getData = function(req) {
     let id = req.params.id;
@@ -465,7 +465,7 @@ BudgetsSummaryView.prototype.getRoute = function(id) {
     return BudgetsView.prototype.getRoute() + "/" + (id ? id : ":id");
 }
 BudgetsSummaryView.prototype.getHTML = function() {
-    return fetch("/views/budgets/summary.html");
+    return fetch("views/budgets/summary.html");
 }
 BudgetsSummaryView.prototype.getData = function(req, res) {
     let labels = GetLabels();
@@ -619,5 +619,5 @@ BudgetsSummaryView.prototype.getData = function(req, res) {
     };
 }
 BudgetsSummaryView.prototype.getJavasScript = function() {
-    return fetch("/views/budgets/summary.js");
+    return fetch("views/budgets/summary.js");
 }
