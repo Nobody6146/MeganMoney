@@ -1,0 +1,114 @@
+
+<span id="templates" hidden>
+    <table>
+        <tbody soothe-tmplt="TransactionItem">
+            <tr soothe-model="_" soothe-prop="id id" soothe-attr="id name">
+                <!-- <td onclick="editTransaction(this.parentNode.id);" soothe-model="_" soothe-prop="index innerHTML"></td> -->
+                
+                <td onclick="editTransaction(this.parentNode.id);">
+                    <div class="labels-container">
+                        <div>
+                           <span soothe-model="_" soothe-prop="dateDisplay innerHTML"></span>
+                        &nbsp;
+                        <span soothe-model="_" soothe-attr="paymentMethod style {{color:{{model.amountColor}}}}" soothe-prop="amountDisplay innerHTML"></span>
+                        &nbsp;&nbsp;&nbsp;&nbsp; 
+                        </div>
+                        <!-- <div class="labels-display" soothe-model="_" soothe-prop="paymentMethod style {{background-color:{{value.color}}}}"></div> -->
+                        <div>
+                            <i soothe-model="_" soothe-prop="info innerHTML"></i>
+                        </div> 
+                        
+                        
+                    </div> 
+                    
+                </td>
+                <td>
+                    <!-- <span soothe-model="_" soothe-prop="primaryCategory innerHTML"></span> -->
+                    <di>
+                        <span soothe-model="_" soothe-prop="paymentMethod innerHTML {{{{value.name}}}}"> </span>
+                        <div class="transaction-color" soothe-model="_" soothe-prop="paymentMethod style {{background-color:{{value.color}}}}"></div>
+                    </di>
+                    
+                </td>
+                <!-- <td onclick="editTransaction(this.parentNode.id);" soothe-model="_" soothe-prop="primaryCategory innerHTML"> </td>
+                <td onclick="editTransaction(this.parentNode.id);">
+                    <div class="labels-display" soothe-model="_" soothe-prop="color style {{background-color:{{value}}}}"></div>
+                </td> -->
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <tbody soothe-tmplt="TransactionItem-Old">
+            <tr soothe-model="_" soothe-prop="id id" soothe-attr="id name">
+                <!-- <td onclick="editTransaction(this.parentNode.id);" soothe-model="_" soothe-prop="index innerHTML"></td> -->
+                <td onclick="editTransaction(this.parentNode.id);" soothe-model="_" soothe-prop="date innerHTML"> </td>
+                <td onclick="editTransaction(this.parentNode.id);" soothe-model="_" soothe-prop="amount innerHTML"> </td>
+                <td onclick="editTransaction(this.parentNode.id);" soothe-model="_" soothe-prop="primaryCategory innerHTML"> </td>
+                <td onclick="editTransaction(this.parentNode.id);">
+                    <div class="labels-display" soothe-model="_" soothe-prop="color style {{background-color:{{value}}}}"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <select soothe-tmplt="CategorySelector">
+        <option soothe-model="_" soothe-prop="id value;name innerHTML"></option>
+    </select>
+</span>
+
+<div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
+    <br />
+    <table>
+        <tbody>
+            <tr>
+                <td>Balance 
+                    <span soothe-model="Accounts" soothe-prop="balanceColor style {{color:{{value}}}}">
+                        <span soothe-model="Accounts" soothe-prop="balanceDisplay innerHTML"></span>
+                    </span>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>Income <span soothe-model="Accounts" soothe-prop="incomeDisplay innerHTML"></span></td>
+                <td>Expenses <span soothe-model="Accounts" soothe-prop="expensesDisplay innerHTML"></span></td>
+            </tr>
+        </tbody>
+    </table>
+    <hr/>
+    <br />
+
+    <!-- <a soothe-model="Accounts" soothe-attr="summaryLink href" soothe-route><span class="fas fa-chart-pie"></span>Summary</a> -->
+    <div>
+        <!-- Filters &nbsp;
+        <select multiple soothe-model="Accounts" soothe-prop="filters value" soothe-input="filters value" soothe-comp="categories CategorySelector">
+        </select> -->
+    </div>
+    <table class="no-border">
+        <tbody>
+            <tr>
+                <!-- <td>
+                    Filters &nbsp;
+                    <select multiple soothe-model="Accounts" soothe-prop="filters value" soothe-input="filters value" soothe-comp="categories CategorySelector">
+                    </select>   
+                </td> -->
+                <td><a soothe-model="Accounts" soothe-attr="summaryLink href" soothe-route><span class="fas fa-chart-pie"></span>Summary</a></td>
+                <td>Transactions <span style="color: var(--theme-color-primary)" soothe-model="Accounts" soothe-prop="transactions innerHTML {{{{value.length}}}}"></span></td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <table>
+        <!-- <thead>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Cat.</th>
+            </tr>
+        </thead> -->
+        <tbody soothe-model="Accounts" soothe-comp="transactions TransactionItem" soothe-list>
+        </tbody>
+    </table>
+    <div class="menu-new-action">
+        <button class="button-new" onclick="editTransaction(0)">New Transaction</button>
+    </div>
+</div>

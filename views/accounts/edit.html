@@ -1,0 +1,80 @@
+<span soothe-tmplt="CategoryItem" hidden>
+    <span soothe-model="_" soothe-del="* evt" soothe-evt="unbind">
+        <button style="margin:2px;" soothe-model="_" soothe-prop="id name;name innerText" onclick="removeCategory(this.name)">
+        </button>
+    </span>
+</span>
+<select hidden>
+    <optgroup soothe-tmplt="LabelSelector">
+        <option soothe-model="_" soothe-prop="id value;name innerHTML"></option>
+    </optgroup>
+</select>
+
+<div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
+    <br />
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Date</td>
+                <td>
+                    <input type="date" name="Date" soothe-model="Accounts" soothe-prop="date value" soothe-input="date value">
+                </td>
+            </tr>
+            <tr>
+                <td>Amount</td>
+                <td>
+                    <input type="number" name="Amount" placeholder="" soothe-model="Accounts" soothe-prop="amount value" soothe-input="amount value">
+                </td>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td>
+                    <select soothe-model="Accounts" soothe-prop="typeId value" soothe-input="typeId value">
+                        <option value="" selected disabled hidden>&lt;Pick Category&gt;</option> 
+                        <optgroup label="Types" soothe-model="Accounts" soothe-comp="transactionTypes LabelSelector" soothe-list>
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Payment Method</td>
+                <td>
+                    <select soothe-model="Accounts" soothe-prop="paymentMethodId value" soothe-input="paymentMethodId value">
+                        <option value="" selected disabled hidden>&lt;Pick Payment Method&gt;</option> 
+                        <optgroup label="Payment Method" soothe-model="Accounts" soothe-comp="paymentMethodLabels LabelSelector" soothe-list>
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Categories</td>
+                <td>
+                    <select onchange="addCategory(this);">
+                        <option value="" selected disabled hidden>&lt;Add a sub category&gt;</option> 
+                        <optgroup label="Categories" soothe-model="Accounts" soothe-comp="categoryLabels LabelSelector" soothe-list>
+                        </optgroup>
+                    </select>
+                    <div id="categories" soothe-model="Accounts.categories" soothe-comp="* CategoryItem append" soothe-evt="bind">
+                        
+                    </div>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>Memo</td>
+                <td>
+                    <textarea name="Memo" soothe-model="Accounts" soothe-prop="memo value" soothe-input="memo value">
+                    </textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <span soothe-model="Accounts" soothe-func="* updateSelectors" soothe-evt="bind" soothe-static></span>
+    <div>
+        <button onclick="cancelEdit(this.id)" soothe-model="Accounts" soothe-prop="id id">Cancel</button>
+        <button onclick="confirmDeleteTransaction(this.id)" soothe-model="Accounts" soothe-prop="id id">Delete</button>
+        <button onclick="saveTransaction();">Save</button>
+    </div>
+</div>

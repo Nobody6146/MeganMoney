@@ -1,0 +1,26 @@
+<span hidden soothe-tmplt="ChartsSection">
+    <div class="chart-container">
+        <canvas soothe-model="_" soothe-prop="type id {{{{varName}}}}" soothe-func="type generateChart"></canvas>
+    </div>
+</span>
+
+<span hidden soothe-tmplt="ChartsSection2">
+    <div class="chart-container">
+        <canvas soothe-model="_" soothe-prop="* id"></canvas>
+    </div>
+</span>
+
+<div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
+    <p>
+        <a soothe-model="Accounts" soothe-attr="accountsLink href" soothe-route><span class="fas fa-edit"></span>Edit Transactions</a>
+        <br />
+    </p>
+
+    <!-- <div id="Charts" soothe-model="Accounts" soothe-comp="charts ChartsSection dict" soothe-dict soothe-keys> -->
+
+    <div id="Charts" soothe-model="Accounts" soothe-comp="chartsList ChartsSection2 arr" soothe-dict soothe-keys>
+
+    </div>
+
+    <div soothe-model="Accounts" soothe-func="chartsList generateCharts"></div>
+</div>

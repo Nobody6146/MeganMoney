@@ -1,0 +1,100 @@
+
+<span hidden>
+    <span soothe-tmplt="TagItem">
+        <button soothe-model="_" soothe-prop="id name;name innerText" onclick="removeTag(this.name)">
+        </button>
+    </span>
+    <select>
+        <optgroup soothe-tmplt="LabelSelector">
+            <option soothe-model="_" soothe-prop="id value;name innerHTML" soothe-tgl="selected selected"></option>
+        </optgroup>
+    </select>
+    <table>
+        <tbody soothe-tmplt="BudgetEditor">
+            <tr >
+                <td>
+                    <table style="width:calc(100% - 40px)">
+                        <tbody>
+                            <tr soothe-model="" soothe-model="_" soothe-attr="* soothe-model BudgetId;* soothe-attr Blank">
+                                <td>Budget Type</td>
+                                <td>
+                                    <select soothe-model="_" soothe-attr="* soothe-model BudgetId;* soothe-attr Blank;* soothe-prop {{typeId value}}" soothe-input="typeId value" onchange="changeBudgetType(this);">
+                                        <option value="" selected disabled hidden>&lt;Pick type&gt;</option> 
+                                        <optgroup label="Labels" soothe-model="_" soothe-attr="* soothe-model BudgetId;* soothe-attr Blank" soothe-comp="budgetTypes LabelSelector" soothe-list>
+                                        </optgroup>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>label</td>
+                                <td>
+                                    <select soothe-model="_" soothe-attr="* soothe-model BudgetId;* soothe-attr Blank" soothe-prop="labelId value" soothe-input="labelId value">
+                                        <option value="" selected disabled hidden>&lt;Pick label&gt;</option> 
+                                        <optgroup label="Labels" soothe-model="_" soothe-attr="* soothe-model BudgetId;* soothe-attr Blank" soothe-comp="labels LabelSelector" soothe-list>
+                                        </optgroup>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Limit Type</td>
+                                <td>
+                                    <select soothe-model="_" soothe-attr="* soothe-model BudgetId;* soothe-attr Blank" soothe-prop="limitId value" soothe-input="limitId value">
+                                        <option value="" selected disabled hidden>&lt;Pick limit&gt;</option> 
+                                        <optgroup label="Labels" soothe-model="_" soothe-attr="* soothe-model BudgetId;* soothe-attr Blank" soothe-prop="typeId value" soothe-comp="limitTypes LabelSelector" soothe-list>
+                                        </optgroup>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Limit Amount</td>
+                                <td>
+                                    <input type="number" placeholder="Amount" soothe-model="_" soothe-attr="* soothe-model BudgetId;* soothe-attr Blank" soothe-prop="limitAmount value" soothe-input="limitAmount value">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="center">
+                        <button soothe-model="_" soothe-attr="* onclick DeleteBudget;* soothe-attr Blank" onclick="deleteBudget(this.parentNode.parentNode)">Remove Budget</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</span>
+<span hidden>
+    <span soothe-pat="BudgetId">{{value}}</span>
+    <span soothe-pat="Blank"></span>
+    <span soothe-pat="DeleteBudget">removeBudget({value})</span>
+</span>
+
+<div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Plan Name</td>
+                <td>
+                    <input type="text" name="Name" placeholder="Name" soothe-model="Plan" soothe-prop="name value" soothe-input="name value">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table soothe-model="Plan" soothe-func="budgets populateBudgets">
+        <tbody soothe-model="Plan" soothe-comp="budgetIds BudgetEditor" soothe-list>
+
+        </tbody>
+    </table>
+    <br />
+    <button onclick="addBudget()">New Budget</button>
+    <br />
+    <br />
+    <div>
+        <button onclick="cancelEdit(this.id)" soothe-model="Budgets" soothe-prop="id id">Cancel</button>
+        <button onclick="confirmDeleteBudgetPlan(this.id)" soothe-model="Budgets" soothe-prop="id id">Delete</button>
+        <button onclick="savePlan();">Save</button>
+    </div>
+
+
+    <!-- <span soothe-model="Budgets" soothe-func="* logSpaEvent"></span> -->
+</div>

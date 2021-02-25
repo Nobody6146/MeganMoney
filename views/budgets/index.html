@@ -1,0 +1,19 @@
+
+<span id="templates" hidden>
+    <table>
+        <tbody soothe-tmplt="PlanItem">
+            <tr soothe-model="_" soothe-prop="id id" soothe-attr="name name">
+                <td onclick="displayBudget(this.parentNode.id);" soothe-model="_" soothe-prop="name innerHTML"> </td>
+            </tr>
+        </tbody>
+    </table>
+</span>
+
+<div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
+    <br />
+    <table>
+        <tbody soothe-model="Budgets" soothe-comp="plans PlanItem" soothe-list>
+        </tbody>
+    </table>
+    <button onclick="editBudget(0)">New Plan</button>
+</div>

@@ -1,0 +1,35 @@
+<span soothe-ext="LabelStyle" hidden>color: {{model.color}}</span>
+<table hidden>
+    <tbody soothe-tmplt="LabelItem">
+        <tr soothe-model="_" soothe-prop="id id" soothe-attr="name name">
+            <td onclick="editLabel(this.parentNode.id);" soothe-model="_" soothe-prop="name innerHTML;id id {{label{{value}}}}"></td>
+            <td onclick="editLabel(this.parentNode.id);">
+                <div class="labels-display" soothe-model="_" soothe-prop="color style {{background-color:{{value}}}}"></div>
+            </td>
+            <td>
+                <div>
+                    C
+                    <input type="checkbox" disabled soothe-model="_" soothe-prop="isCategory checked">
+                </div>
+                <div>
+                    P
+                    <input type="checkbox" disabled soothe-model="_" soothe-prop="isPaymentMethod checked">
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
+    <br />
+    <table>
+        <thead>
+        </thead>
+        <tbody soothe-model="Labels" soothe-comp="labels LabelItem">
+        </tbody>
+    </table>
+    <br />
+    <div class="menu-new-action">
+        <button class="button-new" onclick="editLabel(0)">New Label</button>
+    </div>
+</div>

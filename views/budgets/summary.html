@@ -1,0 +1,18 @@
+<span hidden soothe-tmplt="ChartsSection">
+    <div class="chart-container">
+        <canvas soothe-model="_" soothe-prop="* id" soothe-func="* generateChart"></canvas>
+    </div>
+</span>
+
+<div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
+    <p>
+        <a soothe-model="Budgets" soothe-attr="planId href {{/budgets/{{value}}/edit}}"soothe-route><span class="fas fa-edit"></span>Edit Plan</a>
+    </p>
+
+    </div>
+    <div id="Charts" soothe-model="Budgets" soothe-comp="charts ChartsSection" soothe-dict soothe-keys>
+
+    </div>
+
+    <!-- <span soothe-model="*" soothe-func="* logSpaEvent"></span> -->
+</div>

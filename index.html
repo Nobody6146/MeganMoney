@@ -1,0 +1,166 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>MeganMoney | Home</title>
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="icon" type="/image/png" href="./favicon.png" sizes="16x16">
+        <link rel="manifest" href="manifest.json">
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <script src="./lib/tasktrier.js"></script>
+        <script src="./lib/soothe.js"></script>
+        <script src="./lib/repository.js"></script>
+        <script src="./js/util.js"></script>
+        <script src="./js/database.js"></script>
+        <script src="./js/storage.js"></script>
+        <script src="./js/data.js"></script>
+        <script src="./js/views.js"></script>
+        <script src="./js/views.js"></script>
+        <script src="./js/app.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.4.0/dist/chartjs-plugin-datalabels.min.js"></script>  -->
+        <style>
+
+        </style>
+        <!-- iOS Support -->
+        <link rel="apple-touch-icon" href="favicon-144x144.png">
+        <meta name="apple-mobile-web-app-status-bar" content="#0000FF">
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <h2>MeganMoney</h2>
+            </div>
+            <!-- <div class="buttons">
+                <button id="header-button-left" class="header-button"></button>
+                <button id="header-button-right" class="header-button"></button>
+            </div> -->
+            <div class="date-picker">
+                <input type="month" soothe-model="app.period" soothe-prop="datePicker value" onchange="datePickerSelectPeriod(this.value)">
+            </div>
+        </header>
+        <main>
+            <div class="main-content">
+            </div>
+        </main>
+        <div id="modals">
+            <div id="waitingModal" class="popup">
+                <div class="blockout"></div>
+                <div class="modal center">
+                    <div class="waiting-spinner">
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div id="errorModal" class="popup">
+                <div class="blockout"></div>
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3>Error</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>An unknown error has occured</p>
+                        <div class="modal-buttons"></div>
+                            <button onclick="App.dismissModals()">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="dialogModal" class="popup">
+                <div class="blockout"></div>
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3></h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>Dialog</p>
+                        <div class="modal-buttons">
+                            <button id="dialogModal-confirm" onclick="App.dismissModals()">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="confirmModal" class="popup">
+                <div class="blockout"></div>
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3>Warning</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to proceede?</p>
+                        <div class="modal-buttons">
+                            <button id="confirmModal-confirm" onclick="App.dismissModals()">Yes</button>
+                            <button onclick="App.dismissModals()">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="nav-tab" soothe-model="pageInfo" soothe-attr="Dashboard class">
+                <a href="" soothe-model="app.navigation" soothe-attr="dashboard href" soothe-route>
+                    <span class="tab-icon fas fa-home"></span>
+                    Dashboard
+                </a>
+            </div>
+            <div class="nav-tab" soothe-model="pageInfo" soothe-attr="Labels class">
+                <a soothe-model="app.navigation" soothe-attr="labels href" soothe-route>
+                    <span class="tab-icon fas fa-tags"></span>
+                    Labels
+                </a>
+            </div>
+            <div class="nav-tab" soothe-model="pageInfo" soothe-attr="Accounts class">
+                <a soothe-model="app.navigation" soothe-attr="accounts href" soothe-route>
+                    <span class="tab-icon fas fa-piggy-bank"></span>
+                    Accounts
+                </a>
+            </div>
+            <div class="nav-tab" soothe-model="pageInfo" soothe-attr="Budgets class">
+                <a soothe-model="app.navigation" soothe-attr="budgets href" soothe-route>
+                    <span class="tab-icon fas fa-dollar-sign"></span>
+                    Budgets
+                </a>
+            </div>
+            <div class="nav-tab" soothe-model="pageInfo" soothe-attr="Settings class">
+                <a soothe-model="app.navigation" soothe-attr="settings href" soothe-route>
+                    <span class="tab-icon fas fa-user"></span>
+                    Settings
+                </a>
+            </div>
+
+            <script>
+                try {
+                    //Create the app
+                    var options = {
+                        dom: {
+                            root: "body"
+                        },
+                        routing: {
+                            hashRouting: true,
+                            exactMatch: true
+                        }
+                    };
+                    var app = new SootheApp(options);
+
+                    //Setup the application
+                    App.setup();
+                    //Establish the app pages
+                    App.loadPages();
+                    //Configure the Service Worker
+                    //App.configureServiceWorker();
+                    //Start
+                    App.start();
+                }
+                catch(err) {
+                    console.error(err);
+                    App.displayErrorModal(err.toString());
+                }
+                const datePickerSelectPeriod = function(value) {
+                    let date = new Date(value + "-1");
+                    let period = Util.calculateMonthlyPeriod(date);
+                    App.selectPeriod(period.startDate, period.endDate);
+                }
+            </script>
+        </footer>
+    </body>
+</html>

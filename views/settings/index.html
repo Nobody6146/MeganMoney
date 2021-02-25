@@ -1,0 +1,45 @@
+<span hidden>
+    <select>
+        <optgroup soothe-tmplt="LabelSelector">
+            <option soothe-model="_" soothe-prop="id value;name innerHTML"></option>
+        </optgroup>
+    </select>
+</span>
+
+
+<div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
+    <h4>Transaction Types</h4>
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Positive Amount</td>
+                <td>
+                    <select soothe-model="Settings" soothe-prop="positive value" soothe-input="positive value">
+                        <!-- <option value="" selected disabled hidden>&lt;Pick Payment Method&gt;</option>  -->
+                        <optgroup label="Transaction Type" soothe-model="Settings" soothe-comp="transactionTypes LabelSelector">
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Good Transaction</td>
+                <td>
+                    <select soothe-model="Settings" soothe-prop="good value" soothe-input="good value">
+                        <!-- <option value="" selected disabled hidden>&lt;Pick Payment Method&gt;</option>  -->
+                        <optgroup label="Transaction Type" soothe-model="Settings" soothe-comp="transactionTypes LabelSelector">
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <div>
+        <button onclick="saveSettings();">Save</button>
+        <button onclick="confirmDataReset();">Clear Data</button>
+    </div>
+</div>
+
+<span soothe-model="Settings" soothe-func="* updateSelectors" soothe-static soothe-evt="bind"></span>

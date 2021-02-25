@@ -1,0 +1,39 @@
+<div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
+    <br />
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" name="Name" placeholder=" " soothe-model="Labels" soothe-prop="name value" soothe-input="name value">
+                </td>
+            </tr>
+            <tr>
+                <td>Color</td>
+                <td>
+                    <input type="color" name="Color" placeholder="#FFFFFF" soothe-model="Labels" soothe-prop="color value" soothe-input="color value">
+                </td>
+            </tr>
+            <tr>
+                <td>Payment Method</td>
+                <td>
+                    <input type="checkbox" name="PaymentMethod" soothe-model="Labels" soothe-prop="isPaymentMethod checked" soothe-input="isPaymentMethod checked">
+                </td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>
+                    <input type="checkbox" name="Category" soothe-model="Labels" soothe-prop="isCategory checked" soothe-input="isCategory checked">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <div>
+        <button onclick="cancelEdit(this.id)" soothe-model="Labels" soothe-prop="id id">Cancel</button>
+        <button onclick="confirmDeleteLabel(this.id)" soothe-model="Labels" soothe-prop="id id">Delete</button>
+        <button onclick="saveLabel();">Save</button>
+    </div>
+</div>
