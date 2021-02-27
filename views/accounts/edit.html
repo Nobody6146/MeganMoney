@@ -5,10 +5,13 @@
     </span>
 </span>
 <select hidden>
-    <optgroup soothe-tmplt="LabelSelector">
+    <optgroup soothe-tmplt="TypeSelector">
         <option soothe-model="_" soothe-prop="id value;name innerHTML"></option>
     </optgroup>
 </select>
+<datalist soothe-tmplt="LabelSelector" hidden>
+    <option soothe-model="_" soothe-prop="name value;name innerHTML"></option>
+</datalist>
 
 <div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
     <br />
@@ -25,7 +28,7 @@
             <tr>
                 <td>Amount</td>
                 <td>
-                    <input type="number" name="Amount" placeholder="" soothe-model="Accounts" soothe-prop="amount value" soothe-input="amount value">
+                    <input type="number" name="Amount" placeholder="Amount" soothe-model="Accounts" soothe-prop="amount value" soothe-input="amount value">
                 </td>
             </tr>
             <tr>
@@ -33,7 +36,7 @@
                 <td>
                     <select soothe-model="Accounts" soothe-prop="typeId value" soothe-input="typeId value">
                         <option value="" selected disabled hidden>&lt;Pick Category&gt;</option> 
-                        <optgroup label="Types" soothe-model="Accounts" soothe-comp="transactionTypes LabelSelector" soothe-list>
+                        <optgroup label="Types" soothe-model="Accounts" soothe-comp="transactionTypes TypeSelector" soothe-list>
                         </optgroup>
                     </select>
                 </td>
@@ -41,21 +44,29 @@
             <tr>
                 <td>Payment Method</td>
                 <td>
-                    <select soothe-model="Accounts" soothe-prop="paymentMethodId value" soothe-input="paymentMethodId value">
+                    <input placeholder="Payment Method" list="paymentMethod-list" type="text" soothe-model="Accounts.paymentMethod" soothe-prop="name value" soothe-input="name value">
+                    <datalist id="paymentMethod-list" soothe-model="Accounts" soothe-comp="paymentMethodLabels LabelSelector"></datalist>
+                    <!-- <select soothe-model="Accounts" soothe-prop="paymentMethodId value" soothe-input="paymentMethodId value">
                         <option value="" selected disabled hidden>&lt;Pick Payment Method&gt;</option> 
                         <optgroup label="Payment Method" soothe-model="Accounts" soothe-comp="paymentMethodLabels LabelSelector" soothe-list>
                         </optgroup>
-                    </select>
+                    </select> -->
                 </td>
             </tr>
             <tr>
                 <td>Categories</td>
                 <td>
-                    <select onchange="addCategory(this);">
+                    <!-- <select onchange="addCategory(this);">
                         <option value="" selected disabled hidden>&lt;Add a sub category&gt;</option> 
                         <optgroup label="Categories" soothe-model="Accounts" soothe-comp="categoryLabels LabelSelector" soothe-list>
                         </optgroup>
-                    </select>
+                    </select> -->
+                    <form soothe-submit="addCategory">
+                        <input placeholder="Category" list="categories-list" type="text" soothe-model="Accounts" soothe-prop="categorySelect value" soothe-input="categorySelect value">
+                        <datalist id="categories-list" soothe-model="Accounts" soothe-comp="categoryLabels LabelSelector"></datalist>
+                        <button type="submit">Add</button>
+                    </form>
+                    <hr />
                     <div id="categories" soothe-model="Accounts.categories" soothe-comp="* CategoryItem append" soothe-evt="bind">
                         
                     </div>

@@ -25,3 +25,25 @@ Util.getPeriodPickerFormat = function(period) {
 Util.convertDateStringToDate = function(timeString) {
     return new Date(new Date(timeString).getTime() + new Date().getTimezoneOffset()*60000)
 }
+
+//Default operations
+Util.newLabel = function() {
+    return  {
+        name: "",
+        color: "#FF0000",
+        isPaymentMethod: false,
+        isCategory: true,
+    }
+}
+Util.newTransaction = function() {
+    let period = AppData.getPeriod();
+    return {
+        id: 0,
+        amount: 0,
+        date: new Date() > period.endDate ? period.startDate : new Date(),
+        paymentMethodId: "",
+        memo: "",
+        categories: [],
+        typeId: 1
+    };
+}

@@ -199,7 +199,7 @@ AppDatabase.prototype.getTransactions = function(startDate, endDate) {
     return this.readCursor(AppDatabase.prototype.tables.transactions, (cursor) => {
         if(cursor) {
             let date = cursor.value.date;
-            if(date >= startDate && endDate <= endDate)
+            if(date >= startDate && date <= endDate)
                 transactions.push(cursor.value);
             cursor.continue();
         }

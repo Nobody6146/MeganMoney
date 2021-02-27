@@ -389,7 +389,7 @@ div.tab-selected a {
   color: var(--theme-color-accent);
 }
 
-input:not(input[type="submit"]):placeholder-shown, select[value=""]{
+input:not(input[type="submit"])::placeholder, select[value=""]{
   border: 2px solid var(--theme-color-primary);
 }
 

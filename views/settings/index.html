@@ -7,34 +7,37 @@
 </span>
 
 
+<br />
 <div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
-    <h4>Transaction Types</h4>
-    <table>
-        <thead>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Positive Amount</td>
-                <td>
-                    <select soothe-model="Settings" soothe-prop="positive value" soothe-input="positive value">
-                        <!-- <option value="" selected disabled hidden>&lt;Pick Payment Method&gt;</option>  -->
-                        <optgroup label="Transaction Type" soothe-model="Settings" soothe-comp="transactionTypes LabelSelector">
-                        </optgroup>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Good Transaction</td>
-                <td>
-                    <select soothe-model="Settings" soothe-prop="good value" soothe-input="good value">
-                        <!-- <option value="" selected disabled hidden>&lt;Pick Payment Method&gt;</option>  -->
-                        <optgroup label="Transaction Type" soothe-model="Settings" soothe-comp="transactionTypes LabelSelector">
-                        </optgroup>
-                    </select>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <fieldset>
+        <legend>Transaction Types</legend>
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Positive Amount</td>
+                    <td>
+                        <select soothe-model="Settings" soothe-prop="positive value" soothe-input="positive value">
+                            <!-- <option value="" selected disabled hidden>&lt;Pick Payment Method&gt;</option>  -->
+                            <optgroup label="Transaction Type" soothe-model="Settings" soothe-comp="transactionTypes LabelSelector">
+                            </optgroup>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Good Transaction</td>
+                    <td>
+                        <select soothe-model="Settings" soothe-prop="good value" soothe-input="good value">
+                            <!-- <option value="" selected disabled hidden>&lt;Pick Payment Method&gt;</option>  -->
+                            <optgroup label="Transaction Type" soothe-model="Settings" soothe-comp="transactionTypes LabelSelector">
+                            </optgroup>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
     <br />
     <div>
         <button onclick="saveSettings();">Save</button>

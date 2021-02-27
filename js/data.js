@@ -20,7 +20,7 @@ AppDataError.prototype = Object.create(Error.prototype, {
     }
 });
 
-AppData.sort = async function(array, prop) {
+AppData.sort = function(array, prop) {
     return array.sort((a, b) => {
         var x = a[prop].toLowerCase ? a[prop].toLowerCase() : a[prop];
         var y = b[prop].toLowerCase ? b[prop].toLowerCase() : b[prop];
@@ -109,7 +109,9 @@ AppData.labelIsInUse = async function(id) {
 //Transactions
 AppData.fillTransaction = function(tran, labels, transactionTypes) {
     tran.paymentMethod = labels.find(x => x.id == tran.paymentMethodId);
-    tran.categories = tran.categoryIds.map(x => labels.find(y => y.id == x));
+    if(tran.paymentMethod == undefined)
+        tran.paymentMethod == {}; 
+    tran.categories = AppData.sort(tran.categoryIds.map(x => labels.find(y => y.id == x)), "name");
     tran.type = transactionTypes.find(x => x.id == tran.typeId);
     tran.amount = tran.type.value*tran.amount;
     return tran;
@@ -143,7 +145,7 @@ AppData.saveTransaction = async function(transaction) {
         date: transaction.date,
         //period: Util.calculatePeriod(transaction.date),
         memo: transaction.memo,
-        paymentMethodId: transaction.paymentMethodId,
+        paymentMethodId: transaction.paymentMethod.id,
         categoryIds: transaction.categoryIds
     };
     if(transaction.id > 0)

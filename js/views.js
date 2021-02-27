@@ -155,12 +155,7 @@ LabelsEditView.prototype.getData = function(req) {
         if(label)
             return label;
         else
-            return  {
-                name: "",
-                color: "#000000",
-                isPaymentMethod: false,
-                isCategory: true,
-            }
+            return Util.newLabel();
     });   
 }
 //============ Transactions ==============//
@@ -239,17 +234,11 @@ TransactionsEditView.prototype.getData = function(req) {
         let transaction = res[0];
         let labels = res[1];
         let transactionTypes = res[2];
-        if(!transaction)
-            transaction = {
-                id: 0,
-                amount: 0,
-                date: new Date() > period.endDate ? period.startDate : new Date(),
-                paymentMethodId: "",
-                memo: "",
-                categories: [],
-                typeId: 1
-            };
-
+        if(!transaction) {
+            transaction = Util.newTransaction();
+            transaction.paymentMethod = Util.newLabel();
+        }
+        transaction.categorySelect = "";
         transaction.date = transaction.date.toISOString().substr(0, 10),
         transaction.categoryLabels = labels.filter(x => x.isCategory);
         transaction.paymentMethodLabels = labels.filter(x => x.isPaymentMethod);
