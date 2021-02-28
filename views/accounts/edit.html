@@ -61,7 +61,7 @@
                         <optgroup label="Categories" soothe-model="Accounts" soothe-comp="categoryLabels LabelSelector" soothe-list>
                         </optgroup>
                     </select> -->
-                    <form soothe-submit="addCategory">
+                    <form soothe-submit="addCategory" soothe-enter="addCategory">
                         <input placeholder="Category" list="categories-list" type="text" soothe-model="Accounts" soothe-prop="categorySelect value" soothe-input="categorySelect value">
                         <datalist id="categories-list" soothe-model="Accounts" soothe-comp="categoryLabels LabelSelector"></datalist>
                         <button type="submit">Add</button>
