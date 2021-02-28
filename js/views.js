@@ -268,7 +268,7 @@ TransactionsSummaryView.prototype.getData = function() {
             if(!chart) {
                 chart = {
                     id: chartName,
-                    title: chartName.replaceAll("_", " "),
+                    title: chartName.replace(/_/g, " "),
                     data: []
                 };
                 charts[chartName] = chart;
