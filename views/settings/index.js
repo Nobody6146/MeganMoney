@@ -24,7 +24,7 @@ function saveSettings() {
 }
 
 function confirmDataReset() {
-    let message = 'Delete all of your data? This action cannont be undone.';
+    let message = 'Delete all of your data? This cannont be undone.';
     App.displayConfirmModal(message, function (){
         resetData();
     });

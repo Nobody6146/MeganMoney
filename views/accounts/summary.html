@@ -1,13 +1,6 @@
-<span hidden soothe-tmplt="ChartsSection">
-    <div class="chart-container">
-        <canvas soothe-model="_" soothe-prop="type id {{{{varName}}}}" soothe-func="type generateChart"></canvas>
-    </div>
-</span>
-
-<span hidden soothe-tmplt="ChartsSection2">
-    <div class="chart-container">
-        <canvas soothe-model="_" soothe-prop="* id"></canvas>
-    </div>
+<span soothe-tmplt="ChartTemplate" hidden>
+    <div soothe-model="_" soothe-prop="id id" soothe-func="title generateChart" soothe-attr="title soothe-static {{true}}"></div>
+    <!-- <div soothe-model="_" soothe-func="title log"></div>> -->
 </span>
 
 <div class="page-animation-right" soothe-model="*" soothe-attr="* class {{page-animation-none}}">
@@ -16,11 +9,9 @@
         <br />
     </p>
 
-    <!-- <div id="Charts" soothe-model="Accounts" soothe-comp="charts ChartsSection dict" soothe-dict soothe-keys> -->
+    
 
-    <div id="Charts" soothe-model="Accounts" soothe-comp="chartsList ChartsSection2 arr" soothe-dict soothe-keys>
+    <div id="Charts" soothe-model="Accounts" soothe-comp="charts ChartTemplate dict" soothe-evt="bind">
 
     </div>
-
-    <div soothe-model="Accounts" soothe-func="chartsList generateCharts"></div>
 </div>

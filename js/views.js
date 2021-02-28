@@ -258,113 +258,42 @@ TransactionsSummaryView.prototype.getHTML = function() {
     return fetch("views/accounts/summary.html");
 }
 TransactionsSummaryView.prototype.getData = function() {
-    return Promise.all([AppData.getTransactions(), AppData.getLabels()])
+    return Promise.all([AppData.getTransactions()])
     .then(res => {
         let transactions = res[0];
-        let labels = res[1];
-        let groupBy = function(fieldName, array) {
-            let groupings = {};
-            array.forEach(tran => {
-                let key = tran[fieldName];
-                let grouping = groupings[key] != undefined ? groupings[key] : [];
-                grouping.push(tran.amount);
-                groupings[key] = grouping;
-            });
-            return groupings;
-        }
-        let groupByTags = function(fieldName, array) {
-            let groupings = {};
-            // groupings["<TAGLESS>"] = [];
-            // array.filter(x => x.tags == null || x.tags.length === 0).forEach(x =>
-            //     groupings["<TAGLESS>"].push(x.amount)
-            // );
-            array.forEach(tran => {
-                tran.categories.forEach(tag => {
-                    let key = tag[fieldName];
-                    let grouping = groupings[key] !== undefined ? groupings[key] : [];
-                    grouping.push(tran.amount);
-                    groupings[key] = grouping;
-                })
-            });
-            return groupings;
-        }
-        let generateChart = function(chartName, chartType, array) {
-            let keys = Object.keys(array);
-            let values = Object.values(array).map(value => value.reduce( (x, y) => x + y, 0)).map(x => x.toFixed(2));
-            let labels = [];
-            for(let i = 0; i < keys.length; i++)
-                labels.push(keys[i] + " (" + values[i] + ")");
-            let total = values.reduce((x, y) => x + y, 0);//.reduce((x, y) => x + y, 0);
-            return {
-                type: chartType,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: values,
-                        backgroundColor: keys.map(key => GetLabels().find(label => label.name === key)).map(x => x != null ? x.color : "#000000")
-                    }],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    title: {
-                        display: true,
-                        text: chartName
-                    },
-                    legend: {
-                        display: true
-                    },
-                    // plugins: {
-                    //     datalabels: {
-                    //         formatter: (value, ctx) => {
-                    //             let datasets = ctx.chart.data.datasets;
-                    //             if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
-                    //                 console.log(datasets[0].data);
-                    //                 console.log(ctx);
-                    //               let sum = "$" + value;
-                                
-                    //               return sum;
-                    //             } else {
-                    //               return sum;
-                    //             }
-                    //           },
-                    //         color: '#EEEEEE',
-                            
-                    //     }
-                    // }
-                }
-            };
-        }
         
-        transactions.forEach(tran => {
-            tran.categories.push(labels.find(x => x.name === tran.primaryCategory));
-            tran.categories = tran.categories;
-        });
-        let transactionCounts = transactions.map(tran => {
-            return {
-                category: tran.category,
-                paymentMethod: tran.paymentMethod,
-                categories: tran.categories,
-                amount: 1 
+        let charts = {};
+        let addToChart = function(chartName, key, color, value) {
+            let chart = charts[chartName];
+            if(!chart) {
+                chart = {
+                    id: chartName,
+                    title: chartName.replaceAll("_", " "),
+                    data: []
+                };
+                charts[chartName] = chart;
             }
-        })
-        // let charts = {};
-        // charts.incomeByCategory = generateChart("Net Income by Category", "pie", groupBy("category", transactions));
-        let charts = {
-            incomeByCategory: generateChart("Net Income by Category", "pie", groupByTags("name", transactions)),
-            transactionsByCategory: generateChart("Transactions by Category", "pie", groupByTags("name", transactionCounts)),
-            incomeByPayment: generateChart("Net Income by Payment Method", "pie", groupBy("paymentMethod", transactions)),
-            transactionsByPayment: generateChart("Transactions by Payment Method", "pie", groupBy("paymentMethod", transactionCounts)),
+            if(chart.data[key])
+                chart.data[key].value += value;
+            else
+                chart.data[key] = {
+                    color, value
+                };
         }
+        transactions.forEach(transaction => {
+            let label = transaction.paymentMethod;
+            let amount = transaction.amount;
+            addToChart("Totals_by_Payment_Method", label.name, label.color, amount);
+            addToChart("Transactions_by_Payment_Method", label.name, label.color, 1);
+            transaction.categories.forEach(category => {
+                addToChart("Transactions_by_Category", category.name, category.color, 1);
+                addToChart("Totals_by_Category", category.name, category.color, amount);
+            })
+        });
 
-        // console.log(charts);
-        // console.log(groupBy("category", transactions));
-        // console.log(generateChart("Net Income by Category", "pie", groupBy("category", transactions)))
         return {
-            charts: charts,
-            labels: labels,
-            accountsLink: TransactionsView.prototype.getRoute(),
-            chartsList: Object.keys(charts)
+            charts,
+            accountsLink: TransactionsView.prototype.getRoute()
         };
     });
 }
