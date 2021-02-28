@@ -347,12 +347,12 @@ tbody td, tbody th {
   margin-bottom: 10px;
 }
 
-table.no-border tbody td, table.no-border tbody th {
-  border-bottom: none;
-}
-
 table tbody tr:not(:last-child) td {
   border-bottom: 1px solid var(--theme-color-primary);;
+}
+
+table.no-border tbody tr td, table.no-border tbody th {
+  border-bottom: none;
 }
 
 td:last-child {

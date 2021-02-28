@@ -68,22 +68,43 @@ DashboardView.prototype.getHTML = function() {
    return fetch("views/dashboard/index.html");
 }
 DashboardView.prototype.getData = function(req) {
-    return AppData.getTransactions()
-    .then(transactions => {
-        let balance = transactions.reduce((x, y) => {return x + y.amount}, 0);
-        let expenses = transactions.filter(x => x.amount >= 0);
-        
-        let date = new Date();
+
+    let date = new Date();
+    let periods = [
+        Util.calculateMonthlyPeriod(date),
+        Util.calculateMonthlyPeriod(new Date(date.getFullYear(), date.getMonth() - 1, 1)),
+        Util.calculateMonthlyPeriod(new Date(date.getFullYear(), date.getMonth() - 2, 1))
+    ];
+    let promises = periods.map(period => AppData.getTransactions(period.startDate, period.endDate));
+    let goodTransactionType;
+
+    return AppData.getTransactionTypes()
+    .then(transactionTypes => {
+        goodTransactionType = transactionTypes.find(x => x.good);
+        return Promise.all(promises)
+    })
+    .then(transactionsSets => {
         let days = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate() - date.getDate();
-        date = date.toDateString();
+        let currentDate = date.toDateString();
+
+        let monthlyReviews = [];
+
+        for(let i = 0; i < transactionsSets.length; i++) {
+            let transactions = transactionsSets[i];
+            let total = transactions.reduce((total, value) => total + value.amount, 0);
+            let periodDate = periods[i].startDate.toDateString().split(" ");
+            monthlyReviews.push({
+                month: periodDate[1] + " " + periodDate[3],
+                transactionCount: transactions.length,
+                balance: total >= 0 ? "$" + total.toFixed(2) : "-$" + total.toFixed(2).substr(1),
+                balanceColor: Util.isGoodBalance(total, goodTransactionType) ? "green" : "red",
+            });
+        }
+
         return {
-            date: date.substr(0, date.lastIndexOf(" ")),
+            currentDate: currentDate.substr(0, currentDate.lastIndexOf(" ")),
             days: days,
-            username: "User",
-            balance: balance >= 0 ? "$" + balance : "-$" + balance.toString().substr(1),
-            balanceColor: balance >= 0 ? "green" : "red",
-            expenses: "$" + expenses.reduce((x, y) => {return x + y.amount}, 0),
-            charges: expenses.length
+            monthlyReviews
         }
     })
 }
@@ -201,7 +222,7 @@ TransactionsView.prototype.getData = function() {
             balanceDisplay: (balance >= 0 ? "$" : "-$") + Math.abs(balance),
             incomeDisplay: (income >= 0 ? "$" : "-$") + Math.abs(income),
             expensesDisplay: (expenses >= 0 ? "$" : "-$") + Math.abs(expenses),
-            balanceColor: balance < 0 && goodTransactionType.value < 0 ? "green" : "red",
+            balanceColor: Util.isGoodBalance(balance, goodTransactionType) ? "green" : "red",
             categories: labels.filter(x => x.isCategory),
             filters: labels.filter(x => x.isCategory).reduce((x, y) => x + "," + y, "").id
         };

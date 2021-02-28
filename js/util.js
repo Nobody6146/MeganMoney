@@ -47,3 +47,9 @@ Util.newTransaction = function() {
         typeId: 1
     };
 }
+
+Util.isGoodBalance = function(balance, goodTransactionType) {
+    if(goodTransactionType.value < 0)
+        return balance < 0;
+    return balance >= 0;
+}
